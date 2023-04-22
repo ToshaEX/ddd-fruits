@@ -1,3 +1,6 @@
+import { FruitStorageService } from '../../domain/services/fruit.service';
+
+const fruitStorageService = new FruitStorageService();
 
 type StoreType = {
   name: string;
@@ -33,6 +36,7 @@ export const fruitStorageResolver = {
       return `${name}, ${amount}`;
     },
     createFruitForFruitStorage: (_, { name, description, limit }: CreateType) => {
+      fruitStorageService.createFruitForFruitStorage({ name, description, limit });
       return `${name}, ${description} , ${limit}`;
     },
     updateFruitForFruitStorage: (_, { name, description, limit }: CreateType) => {
