@@ -8,10 +8,8 @@ import mongoose from 'mongoose';
 import { authConfig } from '../../config';
 import http from 'http';
 import cors from 'cors';
-
-import { fruitStorageResolver, typeDefs as FruitStore } from '../../modules/fruit/fruit.resolver';
-
-
+import { fruitStorageResolver } from '../../modules/fruit/application/resolver/fruit.resolver';
+import { typeDefs as FruitStore } from '../../modules/fruit/infra/graphql/fruit.typedefs';
 
 const origin = {
   // origin: isProduction ? 'https://dddforum.com' : '*',
@@ -39,7 +37,7 @@ try {
 async function listen(port: number) {
   const server = new ApolloServer({
     typeDefs: [FruitStore],
-    resolvers: [ fruitStorageResolver],
+    resolvers: [fruitStorageResolver],
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     introspection: true,
   });

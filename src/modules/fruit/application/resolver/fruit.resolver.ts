@@ -1,4 +1,3 @@
-import { gql } from 'apollo-server-express';
 
 type StoreType = {
   name: string;
@@ -20,28 +19,10 @@ type NameType = {
   name: string;
 };
 
-export const typeDefs = gql`
-  type NameType {
-    name: String
-  }
-
-  type Query {
-    findFruit(name: String): NameType
-  }
-
-  type Mutation {
-    storeFruitToFruitStorage(name: String, amount: Int): String
-    removeFruitFromFruitStorage(name: String, amount: Int): String
-    createFruitForFruitStorage(name: String, description: String, limit: Int): String
-    updateFruitForFruitStorage(name: String, description: String, limit: Int): String
-    deleteFruitFromFruitStorage(name: String, forceDelete: Boolean): String
-  }
-`;
-
 export const fruitStorageResolver = {
   Query: {
-    findFruit(_, { name }: NameType):NameType {
-      return {name};
+    findFruit(_, { name }: NameType): NameType {
+      return { name };
     },
   },
   Mutation: {
