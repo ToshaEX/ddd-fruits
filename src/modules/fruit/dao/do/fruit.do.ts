@@ -1,4 +1,4 @@
-class FruitDO {
+class FruitItemDO {
   private name: string;
   private description: string;
   private limit: string;

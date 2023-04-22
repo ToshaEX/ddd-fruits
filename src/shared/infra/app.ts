@@ -9,30 +9,9 @@ import { authConfig } from '../../config';
 import http from 'http';
 import cors from 'cors';
 
-import { fruitStorageResolver } from '../../modules/fruit/fruit.resolver';
+import { fruitStorageResolver, typeDefs as FruitStore } from '../../modules/fruit/fruit.resolver';
 
-const typeDefs = gql`
-  type FruitItem {
-    name: String
-    description: String
-    limit: Int
-  }
 
-  type Query {
-    hello: String
-  }
-  type Mutation {
-    createFruitForFruitStorage(name: String, description: String, limit: Int): FruitItem
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello() {
-      return 'world';
-    },
-  },
-};
 
 const origin = {
   // origin: isProduction ? 'https://dddforum.com' : '*',
@@ -47,8 +26,6 @@ app.use(cors(origin));
 app.use(compression());
 app.use(morgan('combined'));
 
-// app.use('/api/v1', v1Router);
-
 const port = Number(process.env.PORT) || 5000;
 try {
   mongoose.connect(authConfig.connectionString);
@@ -61,8 +38,8 @@ try {
 
 async function listen(port: number) {
   const server = new ApolloServer({
-    typeDefs: [typeDefs],
-    resolvers: [resolvers, fruitStorageResolver],
+    typeDefs: [FruitStore],
+    resolvers: [ fruitStorageResolver],
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     introspection: true,
   });
