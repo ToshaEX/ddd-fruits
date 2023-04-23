@@ -13,8 +13,7 @@ export const typeDefs = gql`
     storeFruitToFruitStorage(name: String, amount: Int): String
     removeFruitFromFruitStorage(name: String, amount: Int): String
     createFruitForFruitStorage(name: String, description: String, limit: Int): String
-    updateFruitForFruitStorage(name: String, description: String, limit: Int): String
+    updateFruitForFruitStorage(_id: String, name: String, description: String, limit: Int): String
     deleteFruitFromFruitStorage(name: String, forceDelete: Boolean): String
   }
 `;
-

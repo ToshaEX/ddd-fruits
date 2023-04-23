@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(origin));
 app.use(compression());
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 const port = Number(process.env.PORT) || 5000;
 try {
@@ -40,6 +40,11 @@ async function listen(port: number) {
     resolvers: [fruitStorageResolver],
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     introspection: true,
+    formatError: (error) => ({
+      message: error.message,
+      path: error.path,
+      locations: error.locations,
+    }),
   });
 
   await server.start();

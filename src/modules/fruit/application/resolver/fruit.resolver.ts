@@ -8,6 +8,7 @@ type StoreType = {
 };
 
 type CreateType = {
+  _id: string;
   name: string;
   description: string;
   limit: number;
@@ -29,21 +30,47 @@ export const fruitStorageResolver = {
     },
   },
   Mutation: {
-    storeFruitToFruitStorage: (_, { name, amount }: StoreType) => {
-      return `${name}, ${amount}`;
+    storeFruitToFruitStorage: async (_, { name, amount }: StoreType) => {
+      try {
+        await fruitStorageService.storeFruitToFruitStorage({ name, amount });
+        return `${name}, ${amount}`;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
-    removeFruitFromFruitStorage: (_, { name, amount }: StoreType) => {
-      return `${name}, ${amount}`;
+    removeFruitFromFruitStorage: async (_, { name, amount }: StoreType) => {
+      try {
+        await fruitStorageService.removeFruitFromFruitStorage({ name, amount });
+        return `${name}, ${amount}`;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
-    createFruitForFruitStorage: (_, { name, description, limit }: CreateType) => {
-      fruitStorageService.createFruitForFruitStorage({ name, description, limit });
-      return `${name}, ${description} , ${limit}`;
+
+    createFruitForFruitStorage: async (_, { name, description, limit }: CreateType) => {
+      try {
+        await fruitStorageService.createFruitForFruitStorage({ name, description, limit });
+        return `${name}, ${description} , ${limit}`;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
-    updateFruitForFruitStorage: (_, { name, description, limit }: CreateType) => {
-      return `${name}, ${description} , ${limit}`;
+
+    updateFruitForFruitStorage: async (_, { _id, name, description, limit }: CreateType) => {
+      try {
+        await fruitStorageService.updateFruitForFruitStorage({ _id, name, description, limit });
+        return `${name}, ${description} , ${limit}`;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
-    deleteFruitFromFruitStorage: (_, { name, forceDelete }: DeleteType) => {
-      return `${name}, ${forceDelete}`;
+    deleteFruitFromFruitStorage: async (_, { name, forceDelete }: DeleteType) => {
+      try {
+        await fruitStorageService.deleteFruitForFruitStorage({ name, forceDelete });
+        return `${name}, ${forceDelete}`;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
   },
 };
