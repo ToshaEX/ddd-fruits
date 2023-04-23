@@ -8,7 +8,7 @@ import {
   StoreFruitToFruitStorageInput,
 } from '../factory/fruit.factory';
 
-type FruitRepositoryOutput = {
+export type FruitRepositoryOutput = {
   _id: string;
   name: string;
   description: string;
@@ -30,6 +30,7 @@ export class FruitStorageService {
     await Promise.all([fruitRepo]);
     return;
   }
+
   async removeFruitFromFruitStorage(removeFruitToFruitStorageInput: StoreFruitToFruitStorageInput): Promise<void> {
     const { name, amount } = removeFruitToFruitStorageInput;
     const isExists = await this.getFruitByName(name);
@@ -80,6 +81,11 @@ export class FruitStorageService {
       await fruitStorageRepository.updateOne({ name: name }, { isDeleted: true }, { upsert: true });
     }
     return;
+  }
+
+  async findFruit(name: string): Promise<FruitRepositoryOutput[]> {
+    const regStr = new RegExp(`${name}`);
+    return await fruitStorageRepository.find({ name: regStr });
   }
 
   private async getFruitByName(name: string): Promise<FruitRepositoryOutput> {

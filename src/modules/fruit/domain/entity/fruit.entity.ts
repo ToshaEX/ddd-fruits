@@ -68,7 +68,7 @@ export class FruitStorage {
   public subtractQty(value: number) {
     const totalVal = this.qty - value;
     if (0 > totalVal) {
-      throw new Error(`Can't subtract, exceeding lower bound`);
+      throw new Error(`Can't subtract, exceeding lower bound. Available quantity ${this.qty}`);
     }
     this.qty = totalVal;
   }

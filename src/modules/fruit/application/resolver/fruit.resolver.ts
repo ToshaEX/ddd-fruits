@@ -1,4 +1,4 @@
-import { FruitStorageService } from '../../domain/services/fruit.service';
+import { FruitRepositoryOutput, FruitStorageService } from '../../domain/services/fruit.service';
 
 const fruitStorageService = new FruitStorageService();
 
@@ -25,8 +25,12 @@ type NameType = {
 
 export const fruitStorageResolver = {
   Query: {
-    findFruit(_, { name }: NameType): NameType {
-      return { name };
+    async findFruit(_, { name }: NameType): Promise<FruitRepositoryOutput[]> {
+      try {
+        return await fruitStorageService.findFruit(name);
+      } catch (err) {
+        throw new Error(err);
+      }
     },
   },
   Mutation: {

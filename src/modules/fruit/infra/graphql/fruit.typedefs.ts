@@ -1,12 +1,17 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
-  type NameType {
+  type FruitRepositoryOutput {
+    _id: String
     name: String
+    description: String
+    qty: Int
+    limit: Int
+    isDeleted: Boolean
   }
 
   type Query {
-    findFruit(name: String): NameType
+    findFruit(name: String): [FruitRepositoryOutput]
   }
 
   type Mutation {
