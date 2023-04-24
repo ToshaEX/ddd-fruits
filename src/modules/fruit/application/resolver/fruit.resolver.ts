@@ -7,12 +7,13 @@ type StoreType = {
   amount: number;
 };
 
-type CreateType = {
+type UpdateType = {
   _id: string;
   name: string;
   description: string;
   limit: number;
 };
+type CreateType = Omit<UpdateType,"_id">;
 
 type DeleteType = {
   name: string;
@@ -60,7 +61,7 @@ export const fruitStorageResolver = {
       }
     },
 
-    updateFruitForFruitStorage: async (_, { _id, name, description, limit }: CreateType) => {
+    updateFruitForFruitStorage: async (_, { _id, name, description, limit }: UpdateType) => {
       try {
         await fruitStorageService.updateFruitForFruitStorage({ _id, name, description, limit });
         return `${name}, ${description} , ${limit}`;
