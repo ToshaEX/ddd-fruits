@@ -1,5 +1,5 @@
 import { fruitStorageRepository } from '../../infra/database/repository/fruit.Repository';
-import { FruitStorage } from '../entity/fruit.entity';
+import { FruitStorage } from '../fruit.entity';
 import {
   createFruitStorage,
   CreateFruitForFruitStorageInput,
